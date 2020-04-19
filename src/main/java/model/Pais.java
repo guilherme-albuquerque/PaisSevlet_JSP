@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Pais implements Serializable {
 
@@ -8,6 +9,7 @@ public class Pais implements Serializable {
         private String nome;
         private long populacao;
         private String area;
+    ArrayList<Pais> lista = new ArrayList<>();
 
 
         public Pais() {

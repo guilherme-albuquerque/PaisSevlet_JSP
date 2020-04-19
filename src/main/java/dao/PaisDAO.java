@@ -1,5 +1,6 @@
 package dao;
 
+import jdk.internal.access.JavaIOFileDescriptorAccess;
 import model.Pais;
 
 import java.sql.Connection;
@@ -7,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PaisDAO {
+public class PaisDAO extends Pais {
     public int criar(Pais pais) {
         String sqlInsert = "INSERT INTO pais(nome, populacao, area) VALUES (?, ?, ?)";
         // usando o try with resources do Java 7, que fecha o que abriu
@@ -87,4 +88,42 @@ public class PaisDAO {
         return pais;
     }
 
+    public void maiorpopulacao() throws SQLException {
+        long popula = 0;String nome = null;
+        for(Pais populacao : lista) {
+            if(popula<populacao.getPopulacao()) {
+                popula=populacao.getPopulacao();
+                nome = populacao.getNome();
+                this.setNome(nome);
+                this.setPopulacao(popula);
+
+            }
+        }
+        System.out.println("Pais: "+nome+", Popupacao: "+popula);
+    }
+
+    public void menorArea()  {
+        String nome=null; double area=0;
+
+        for(Pais pais : lista) {
+
+            if(area ==0 ||area>pais.getArea()) {
+                area= pais.getArea(); nome=pais.getNome();
+                this.setNome(nome);;
+                this.setArea(area);
+            }
+        }
+        System.out.println("Pais: "+nome+", Area: "+area);
+    }
+
+    public void vetorTresPaises() {
+        int i=0;
+        for( i=0;i<=2;i++) {
+            JavaIOFileDescriptorAccess lista;
+            System.out.println("Pais:"+lista.get(i).getNome());
+        }
+    }
+
+
 }
+
